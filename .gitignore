@@ -1,0 +1,29 @@
+# Azure Bicep generated files
+*.parameters.json.bak
+
+# Bicep compiled ARM templates (exclude from version control)
+# Keep parameter files but exclude compiled JSON outputs
+deployments/*.json
+modules/**/*.json
+
+# Build output
+bin/
+obj/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+.temp/
