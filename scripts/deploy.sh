@@ -1,6 +1,9 @@
 #!/bin/bash
 # Deployment script for Azure Bicep templates
 
+# Get the directory where the script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # Exit on error
 set -e
 
@@ -79,8 +82,8 @@ az group create --name "$RESOURCE_GROUP" --location "$LOCATION"
 
 # Deploy the Bicep template
 echo "Starting deployment..."
-TEMPLATE_FILE="../deployments/main.bicep"
-PARAMETERS_FILE="../parameters/${ENVIRONMENT}/main.parameters.json"
+TEMPLATE_FILE="${SCRIPT_DIR}/../deployments/main.bicep"
+PARAMETERS_FILE="${SCRIPT_DIR}/../parameters/${ENVIRONMENT}/main.parameters.json"
 
 az deployment group create \
   --resource-group "$RESOURCE_GROUP" \

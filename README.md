@@ -13,7 +13,8 @@ This repository contains Azure Bicep templates for deploying infrastructure to A
 │   │   └── storageAccount.bicep
 │   ├── networking/      # Networking modules
 │   │   └── virtualNetwork.bicep
-│   └── compute/         # Compute modules (future)
+│   └── security/        # Security modules
+│       └── keyVault.bicep
 ├── parameters/          # Parameter files per environment
 │   ├── dev/            # Development environment parameters
 │   ├── test/           # Test environment parameters
@@ -110,6 +111,14 @@ The `bicepconfig.json` file contains linting rules and analyzer settings. Custom
 - Located in `modules/networking/virtualNetwork.bicep`
 - Creates a virtual network with customizable subnets
 - Supports multiple subnet configurations
+
+### Key Vault Module
+- Located in `modules/security/keyVault.bicep`
+- Creates a secure Key Vault with:
+  - RBAC authorization
+  - Soft delete and purge protection
+  - Private network access (requires private endpoints)
+  - Network ACLs configured
 
 ## 🔍 Validating Templates
 

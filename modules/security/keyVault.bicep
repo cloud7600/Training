@@ -27,6 +27,9 @@ param enablePurgeProtection bool = true
 @description('Enable RBAC authorization')
 param enableRbacAuthorization bool = true
 
+@description('Enable public network access')
+param enablePublicAccess bool = false
+
 @description('Tags to apply to the key vault')
 param tags object = {}
 
@@ -44,7 +47,7 @@ resource keyVault 'Microsoft.KeyVault/vaults@2023-07-01' = {
     softDeleteRetentionInDays: softDeleteRetentionInDays
     enablePurgeProtection: enablePurgeProtection
     enableRbacAuthorization: enableRbacAuthorization
-    publicNetworkAccess: 'Disabled'
+    publicNetworkAccess: enablePublicAccess ? 'Enabled' : 'Disabled'
     networkAcls: {
       bypass: 'AzureServices'
       defaultAction: 'Deny'

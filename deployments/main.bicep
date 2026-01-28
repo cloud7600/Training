@@ -23,7 +23,7 @@ param tags object = {
 }
 
 // Variables
-var storageAccountName = '${projectName}${environment}sa'
+var storageAccountName = toLower('${take(projectName, 17)}${environment}sa')
 var vnetName = '${projectName}-${environment}-vnet'
 
 // Deploy Storage Account

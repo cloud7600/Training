@@ -45,6 +45,9 @@ jobs:
         echo "Building networking module..."
         az bicep build --file modules/networking/virtualNetwork.bicep
         
+        echo "Building Key Vault module..."
+        az bicep build --file modules/security/keyVault.bicep
+        
         echo "All templates built successfully!"
     
     - name: Lint Bicep templates
@@ -57,6 +60,9 @@ jobs:
         
         echo "Linting networking module..."
         az bicep lint --file modules/networking/virtualNetwork.bicep
+        
+        echo "Linting Key Vault module..."
+        az bicep lint --file modules/security/keyVault.bicep
         
         echo "All templates passed linting!"
     
