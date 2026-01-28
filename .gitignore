@@ -1,6 +1,10 @@
 # Azure Bicep generated files
 *.parameters.json.bak
-*.bicep.json
+
+# Bicep compiled ARM templates (exclude from version control)
+# Keep parameter files but exclude compiled JSON outputs
+deployments/*.json
+modules/**/*.json
 
 # Build output
 bin/
