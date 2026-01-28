@@ -1,0 +1,25 @@
+# Azure Bicep generated files
+*.parameters.json.bak
+*.bicep.json
+
+# Build output
+bin/
+obj/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+.temp/
