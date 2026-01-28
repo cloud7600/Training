@@ -2,6 +2,8 @@
 
 This repository contains Azure Bicep templates for deploying infrastructure to Azure. It demonstrates best practices for Infrastructure as Code using Azure Bicep.
 
+> **New to this repository?** Check out the [Quick Start Guide](QUICKSTART.md) for step-by-step deployment instructions.
+
 ## 📁 Repository Structure
 
 ```
