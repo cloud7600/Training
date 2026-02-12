@@ -1,0 +1,81 @@
+name: Validate Bicep Templates
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - '**.bicep'
+      - '**.json'
+      - '.github/workflows/validate-bicep.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - '**.bicep'
+      - '**.json'
+      - '.github/workflows/validate-bicep.yml'
+
+jobs:
+  validate:
+    name: Validate Bicep Templates
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Azure CLI
+      uses: azure/login@v2
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+      continue-on-error: true
+    
+    - name: Install Bicep CLI
+      run: |
+        az bicep install
+        az bicep version
+    
+    - name: Build Bicep templates
+      run: |
+        echo "Building main deployment template..."
+        az bicep build --file deployments/main.bicep
+        
+        echo "Building storage module..."
+        az bicep build --file modules/storage/storageAccount.bicep
+        
+        echo "Building networking module..."
+        az bicep build --file modules/networking/virtualNetwork.bicep
+        
+        echo "Building Key Vault module..."
+        az bicep build --file modules/security/keyVault.bicep
+        
+        echo "All templates built successfully!"
+    
+    - name: Lint Bicep templates
+      run: |
+        echo "Linting main deployment template..."
+        az bicep lint --file deployments/main.bicep
+        
+        echo "Linting storage module..."
+        az bicep lint --file modules/storage/storageAccount.bicep
+        
+        echo "Linting networking module..."
+        az bicep lint --file modules/networking/virtualNetwork.bicep
+        
+        echo "Linting Key Vault module..."
+        az bicep lint --file modules/security/keyVault.bicep
+        
+        echo "All templates passed linting!"
+    
+    - name: Validate parameter files
+      run: |
+        echo "Validating parameter file schemas..."
+        for file in parameters/**/*.parameters.json; do
+          echo "Checking $file..."
+          if ! jq empty "$file" 2>/dev/null; then
+            echo "Error: Invalid JSON in $file"
+            exit 1
+          fi
+        done
+        echo "All parameter files are valid JSON!"
